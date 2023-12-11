@@ -42,7 +42,8 @@ export default function Home() {
   const handleAnswerSelect = (selectedOption) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = selectedOption;
-    setAnswers([...newAnswers]);
+
+    console.log(newAnswers);
   };
 
   const handleNextQuestion = () => {
