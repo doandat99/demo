@@ -39,7 +39,10 @@ const courses = [
 ];
 
 export default function Result() {
-  const savedAnswers = JSON.parse(sessionStorage.getItem("savedAnswers"));
+  const savedAnswers = sessionStorage.getItem(
+    "savedAnswers",
+    JSON.stringify("savedAnswers")
+  );
   console.log(savedAnswers);
 
   return (
