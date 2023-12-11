@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 
 import {
   ChakraProvider,
@@ -41,7 +40,7 @@ const courses = [
 
 export default function Result() {
   const savedAnswers = JSON.parse(sessionStorage.getItem("savedAnswers"));
-  console.log(savedAnswers);
+
   return (
     <>
       <div style={{ width: 30 }}>
