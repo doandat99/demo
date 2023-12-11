@@ -39,12 +39,6 @@ export default function Home() {
     Array(questionsData.length).fill(null)
   );
 
-  useEffect(() => {
-    handleAnswerSelect();
-  }, []);
-
-  console.log(answers);
-
   const handleAnswerSelect = (selectedOption) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = selectedOption;
