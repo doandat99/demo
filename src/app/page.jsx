@@ -4,7 +4,7 @@
 // import styles from "./page.module.css";
 // import Hero from "public/hero.png";
 // import Button from "@/components/Button/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Box,
@@ -39,13 +39,16 @@ export default function Home() {
     Array(questionsData.length).fill(null)
   );
 
-  let arr = [];
-  console.log(arr);
+  useEffect(() => {
+    handleAnswerSelect();
+  }, []);
+
+  console.log(answers);
 
   const handleAnswerSelect = (selectedOption) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = selectedOption;
-    arr = newAnswers;
+    setAnswers([...newAnswers]);
   };
 
   const handleNextQuestion = () => {
@@ -54,7 +57,7 @@ export default function Home() {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       if (currentQuestionIndex === questionsData.length - 1) {
-        sessionStorage.setItem("savedAnswers", JSON.stringify(arr));
+        sessionStorage.setItem("savedAnswers", JSON.stringify(answers));
         router.push("/result");
       }
     }
