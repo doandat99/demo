@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -47,36 +47,11 @@ const Quiz = ({
 
   return (
     <>
-      {/* <Box>
-        <p style={{ display: "flex", justifyContent: "flex-end" }}>
-          {currentQuestion + 1 + "/" + questions.length}
-        </p>
-        <Progress value={progressPercentage} mb={4} colorScheme="teal" />
-        <Text mb={4}>{questions[currentQuestion].question}</Text>
-        <Stack spacing={4}>
-          {options.map((option, index) => (
-            <Box
-              key={index}
-              borderWidth="2px"
-              borderRadius="md"
-              p={4}
-              cursor="pointer"
-              borderColor={selectedAnswer === index ? "teal.600" : "gray.200"}
-              bg={selectedAnswer === index ? "teal.600" : "white"}
-              color={selectedAnswer === index ? "white" : "black"}
-              onClick={() => handleAnswerChange(index)}
-            >
-              {option}
-            </Box>
-          ))}
-        </Stack>
-      </Box> */}
-      <Box>
-        {quizCompleted ? (
+      {/* {quizCompleted ? (
           <Box>
-            {/* <Text fontSize="xl" fontWeight="bold" mb={4}>
+            <Text fontSize="xl" fontWeight="bold" mb={4}>
               Kết quả: {score}/{questions.length}
-            </Text> */}
+            </Text>
             <Text fontSize="lg" mb={4}>
               Lựa chọn:
             </Text>
@@ -91,42 +66,36 @@ const Quiz = ({
               ))}
             </Stack>
           </Box>
-        ) : (
-          <Box>
-            <Progress value={progressPercentage} mb={4} />
-            <Text fontSize="xl" fontWeight="bold" mb={4}>
-              Câu hỏi {currentQuestion + 1}/{questions.length}:
-            </Text>
-            <Text mb={4}>{questions[currentQuestion].question}</Text>
-            <Stack spacing={4}>
-              {options.map((option, index) => (
-                <Box
-                  key={index}
-                  borderWidth="1px"
-                  borderRadius="md"
-                  p={4}
-                  cursor="pointer"
-                  borderColor={
-                    selectedAnswer === index ? "teal.500" : "gray.200"
-                  }
-                  bg={selectedAnswer === index ? "teal.100" : "white"}
-                  onClick={() => handleAnswerChange(index)}
-                >
-                  {option}
-                </Box>
-              ))}
-            </Stack>
-            {/* <Stack mt={4} direction="row" spacing={4}>
-              <Button
-                onClick={handlePreviousQuestion}
-                disabled={currentQuestion === 0}
-              >
-                Quay lại
-              </Button>
-              <Button onClick={handleNextQuestion}>Tiếp tục</Button>
-            </Stack> */}
-          </Box>
-        )}
+        ) : ( */}
+      <Box>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          {currentQuestion + 1 + "/" + questions.length}
+        </div>
+        <Progress
+          value={progressPercentage}
+          mb={10}
+          colorScheme="teal"
+          borderRadius={10}
+        />
+        <Text mb={4}>{questions[currentQuestion].question}</Text>
+        <Stack spacing={4}>
+          {options.map((option, index) => (
+            <Box
+              key={index}
+              borderWidth="2px"
+              borderRadius="md"
+              p={4}
+              cursor="pointer"
+              borderColor={selectedAnswer === index ? "teal.600" : "gray.100"}
+              bg={selectedAnswer === index ? "teal" : "white"}
+              color={selectedAnswer === index ? "white" : "gray.800"}
+              boxShadow="md"
+              onClick={() => handleAnswerChange(index)}
+            >
+              {option}
+            </Box>
+          ))}
+        </Stack>
       </Box>
       <div
         style={{
@@ -135,28 +104,16 @@ const Quiz = ({
           marginTop: 40,
         }}
       >
-        {quizCompleted ? (
-          <Button
-            onClick={() => router.push("/result")}
-            disabled={currentQuestion === 0}
-            colorScheme="teal"
-          >
-            Tiếp tục
-          </Button>
-        ) : (
-          <>
-            <Button
-              onClick={handlePreviousQuestion}
-              disabled={currentQuestion === 0}
-              colorScheme="teal"
-            >
-              Quay lại
-            </Button>
-            <Button colorScheme="teal" onClick={handleNextQuestion}>
-              Tiếp tục
-            </Button>
-          </>
-        )}
+        <Button
+          onClick={handlePreviousQuestion}
+          disabled={currentQuestion === 0}
+          colorScheme="teal"
+        >
+          Quay lại
+        </Button>
+        <Button colorScheme="teal" onClick={handleNextQuestion}>
+          Tiếp tục
+        </Button>
       </div>
     </>
   );

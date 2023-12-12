@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   ChakraProvider,
@@ -67,20 +67,68 @@ const courses = [
   },
 ];
 
+const questions = [
+  {
+    question: "Câu hỏi 1?",
+    options: ["Đáp án 1.1", "Đáp án 1.2", "Đáp án 1.3", "Đáp án 1.4"],
+  },
+  {
+    question: "Câu hỏi 2?",
+    options: ["Đáp án 2.1", "Đáp án 2.2", "Đáp án 2.3", "Đáp án 2.4"],
+  },
+  {
+    question: "Câu hỏi 3?",
+    options: ["Đáp án 3.1", "Đáp án 3.2", "Đáp án 3.3", "Đáp án 3.4"],
+  },
+  {
+    question: "Câu hỏi 4?",
+    options: ["Đáp án 4.1", "Đáp án 4.2", "Đáp án 4.3", "Đáp án 5.4"],
+  },
+  // ... (tương tự cho các câu hỏi còn lại)
+];
+
+const data = localStorage.getItem("answers");
+const answers = data ? JSON.parse(data) : [];
+const result = questions.map((question, index) => {
+  const selectedOptionIndex = answers[index];
+  return {
+    question: question.question,
+    selectedOption:
+      selectedOptionIndex !== undefined
+        ? question.options[selectedOptionIndex]
+        : null,
+  };
+});
+
+console.log(result);
+
 export default function Result() {
   return (
     <>
+      <Box
+        as="nav"
+        mb={10}
+        style={{ display: "flex", justifyContent: "center" }}
+        borderBottom="1px"
+        borderBottomColor={"gray.200"}
+      >
+        <Image
+          src="https://i.upanh.org/2023/12/12/logo2bd58773aff5ec0d.png"
+          alt="hero"
+          width={200}
+          height={200}
+        />
+      </Box>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          marginTop: 20,
         }}
       >
         <Text fontSize={20} fontWeight={600} color="teal">
           Gợi ý một số danh sách khóa học
         </Text>
-        <div style={{ width: 30 }}>
+        <div>
           <Menu>
             <MenuButton
               px={4}
@@ -95,17 +143,13 @@ export default function Result() {
               ...
             </MenuButton>
             <MenuList>
-              <MenuItem>Question 1</MenuItem>
-              <MenuItem>{""}</MenuItem>
-              <MenuDivider />
-              <MenuItem>Question 2</MenuItem>
-              <MenuItem>{""}</MenuItem>
-              <MenuDivider />
-              <MenuItem>Question 3</MenuItem>
-              <MenuItem>{""}</MenuItem>
-              <MenuDivider />
-              <MenuItem>Question 4</MenuItem>
-              <MenuItem>{""}</MenuItem>
+              {result?.map((value) => (
+                <>
+                  <MenuItem>{value.question}</MenuItem>
+                  <MenuItem color="teal">{value.selectedOption}</MenuItem>
+                  <MenuDivider />
+                </>
+              ))}
             </MenuList>
           </Menu>
         </div>
@@ -123,8 +167,8 @@ export default function Result() {
             key={index}
             borderRadius="lg"
             overflow="hidden"
-            border={"1px solid"}
-            padding={2}
+            borderWidth="1px"
+            boxShadow={"lg"}
           >
             <Image src={course.imageUrl} alt={`Course ${index + 1}`} />
             <Text mt={2} fontWeight="bold" textAlign="center">

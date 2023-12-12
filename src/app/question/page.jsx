@@ -7,7 +7,7 @@
 
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Quiz from "@/components/Question/question";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const customTheme = extendTheme({
@@ -73,12 +73,13 @@ export default function Question() {
     if (selectedAnswer !== null) {
       const newAnswers = [...answers];
       newAnswers[currentQuestion] = selectedAnswer;
-      // setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null);
       setAnswers(newAnswers);
       if (currentQuestion === questions.length - 1) {
-        setQuizCompleted(true);
-        // router.push("/result");
+        setTimeout(() => {
+          router.push("/result");
+        }, 1000);
+        localStorage.setItem("answers", JSON.stringify(newAnswers));
       } else {
         if (currentQuestion < questions.length - 1) {
           setCurrentQuestion(currentQuestion + 1);
@@ -92,6 +93,7 @@ export default function Question() {
       setCurrentQuestion(currentQuestion - 1);
     }
   };
+
   return (
     // <div className={styles.container}>
     //   <div className={styles.item}>
