@@ -87,22 +87,25 @@ const questions = [
   // ... (tương tự cho các câu hỏi còn lại)
 ];
 
-const data = localStorage.getItem("answers");
-const answers = data ? JSON.parse(data) : [];
-const result = questions.map((question, index) => {
-  const selectedOptionIndex = answers[index];
-  return {
-    question: question.question,
-    selectedOption:
-      selectedOptionIndex !== undefined
-        ? question.options[selectedOptionIndex]
-        : null,
-  };
-});
-
-console.log(result);
-
 export default function Result() {
+  const data =
+    typeof window !== "undefined" ? localStorage.getItem("answers") : null;
+  const answers = data ? JSON.parse(data) : [];
+  const result = questions.map((question, index) => {
+    const selectedOptionIndex = answers[index];
+    return {
+      question: question.question,
+      selectedOption:
+        selectedOptionIndex !== undefined
+          ? question.options[selectedOptionIndex]
+          : null,
+    };
+  });
+
+  useEffect(() => {
+    localStorage.getItem("answers");
+  }, []);
+
   return (
     <>
       <Box
