@@ -89,7 +89,7 @@ const questions = [
 
 export default function Result() {
   const data =
-    typeof window !== "undefined" ? localStorage.getItem("answers") : null;
+    typeof window !== "undefined" ? sessionStorage.getItem("answers") : null;
   const answers = data ? JSON.parse(data) : [];
   const result = questions.map((question, index) => {
     const selectedOptionIndex = answers[index];
@@ -103,7 +103,7 @@ export default function Result() {
   });
 
   useEffect(() => {
-    localStorage.getItem("answers");
+    sessionStorage.getItem("answers");
   }, []);
 
   return (
@@ -149,7 +149,9 @@ export default function Result() {
               {result?.map((value) => (
                 <>
                   <MenuItem>{value.question}</MenuItem>
-                  <MenuItem color="teal">{value.selectedOption}</MenuItem>
+                  <MenuItem fontSize={18} fontWeight={500} color="teal">
+                    {value.selectedOption}
+                  </MenuItem>
                   <MenuDivider />
                 </>
               ))}

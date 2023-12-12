@@ -79,7 +79,7 @@ export default function Question() {
         setTimeout(() => {
           router.push("/result");
         }, 1000);
-        localStorage.setItem("answers", JSON.stringify(newAnswers));
+        sessionStorage.setItem("answers", JSON.stringify(newAnswers));
       } else {
         if (currentQuestion < questions.length - 1) {
           setCurrentQuestion(currentQuestion + 1);
