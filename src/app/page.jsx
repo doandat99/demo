@@ -27,13 +27,13 @@ export default function Home() {
         width={500}
         height={500}
       />
-      {/* <Heading>Xin chào !</Heading> */}
+
       <form style={{ width: "60%" }} onSubmit={handleSubmit}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <FormControl>
             <Input type="text" id="name" placeholder="Nhập tên của bạn" />
           </FormControl>
-          <Button colorScheme="teal" type="submit" style={{ marginLeft: 10 }}>
+          <Button colorScheme="red" type="submit" style={{ marginLeft: 10 }}>
             Gửi
           </Button>
         </div>

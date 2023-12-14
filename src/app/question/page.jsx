@@ -53,32 +53,28 @@ export default function Question() {
   const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState(Array(questions.length).fill(null));
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [nextClicked, setNextClicked] = useState(true);
   const router = useRouter();
+
+  useEffect(() => {
+    setNextClicked(false);
+  }, [nextClicked]);
 
   const handleAnswerChange = (index) => {
     setSelectedAnswer(index);
   };
 
   const handleNextQuestion = () => {
-    // if (selectedAnswer !== null) {
-    //   const newAnswers = [...answers];
-    //   newAnswers[currentQuestion] = selectedAnswer;
-    //   setAnswers(newAnswers);
-    //   setSelectedAnswer(null);
-    //   setCurrentQuestion(currentQuestion + 1);
-    //   if (currentQuestion === questions.length - 1) {
-    //     router.push("/result");
-    //   }
-    // }
     if (selectedAnswer !== null) {
       const newAnswers = [...answers];
       newAnswers[currentQuestion] = selectedAnswer;
       setSelectedAnswer(null);
       setAnswers(newAnswers);
+      setNextClicked(true);
       if (currentQuestion === questions.length - 1) {
         setTimeout(() => {
           router.push("/result");
-        }, 1000);
+        }, 500);
         sessionStorage.setItem("answers", JSON.stringify(newAnswers));
       } else {
         if (currentQuestion < questions.length - 1) {
@@ -95,22 +91,6 @@ export default function Question() {
   };
 
   return (
-    // <div className={styles.container}>
-    //   <div className={styles.item}>
-    //     <h1 className={styles.title}>
-    //       Better design for your digital products.
-    //     </h1>
-    //     <p className={styles.desc}>
-    //       Turning your Idea into Reality. We bring together the teams from the
-    //       global tech industry.
-    //     </p>
-    //     <Button url="/portfolio" text="See Our Works" />
-    //   </div>
-    //   <div className={styles.item}>
-    //     <Image src={Hero} className={styles.img} alt="hero" />
-    //   </div>
-    // </div>
-
     <ChakraProvider theme={customTheme}>
       <Quiz
         quizCompleted={quizCompleted}
@@ -121,6 +101,7 @@ export default function Question() {
         handlePreviousQuestion={handlePreviousQuestion}
         currentQuestion={currentQuestion}
         selectedAnswer={selectedAnswer}
+        nextClicked={nextClicked}
       />
     </ChakraProvider>
   );

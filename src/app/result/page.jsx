@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
+import Note from "../animations/note.json";
+import Lottie from "lottie-react";
 
 import {
   ChakraProvider,
@@ -128,22 +130,24 @@ export default function Result() {
           justifyContent: "space-between",
         }}
       >
-        <Text fontSize={20} fontWeight={600} color="teal">
+        <Text fontSize={20} fontWeight={600} color="#000080">
           Gợi ý một số danh sách khóa học
         </Text>
         <div>
           <Menu>
             <MenuButton
-              px={4}
-              py={2}
-              transition="all 0.2s"
+              px={1}
+              py={1}
+              // transition="all 0.2s"
               borderRadius="md"
               borderWidth="1px"
-              _hover={{ bg: "gray.400" }}
-              _expanded={{ bg: "blue.400" }}
-              _focus={{ boxShadow: "outline" }}
+              // _hover={{ bg: "gray.400" }}
+              // _expanded={{ bg: "blue.400" }}
+              // _focus={{ boxShadow: "outline" }}
+              width={10}
+              height={10}
             >
-              ...
+              <Lottie loop={true} animationData={Note} />
             </MenuButton>
             <MenuList>
               {result?.map((value) => (
@@ -174,6 +178,12 @@ export default function Result() {
             overflow="hidden"
             borderWidth="1px"
             boxShadow={"lg"}
+            cursor="pointer"
+            _hover={{
+              transform: "scale(1.1)",
+              boxShadow: "2xl",
+              transition: "all 0.2s",
+            }}
           >
             <Image src={course.imageUrl} alt={`Course ${index + 1}`} />
             <Text mt={2} fontWeight="bold" textAlign="center">
